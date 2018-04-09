@@ -1,0 +1,34 @@
+- hosts: all
+  tasks:
+  - name: ansible set permission recursvely for a directory
+    file:
+      path: /tmp/devops_directory
+      state: directory
+      mode: "u=rw,g=rw,o=rw"
+      recurse: yes
+
+  - name: ansible set permission recursvely for a directory
+    file:
+      path: /tmp/devops_directory1
+      state: directory
+      mode: "u=rw,g=rw,o=rw"
+      recurse: yes
+
+  - name: ansible create multiple directory example
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - '/tmp/devops_system4'
+      - '/tmp/devops_system2'
+      - '/tmp/devops_system3'
+
+  - name: ansible create directory with_items example
+    file:
+      path: "{{ item.dest }}"
+      mode: "{{item.mode}}"
+      state: directory
+    with_items:
+      - { dest: '/tmp/devops_system4', mode: '0755'}
+      - { dest: '/tmp/devops_system2', mode: '0755'}
+      - { dest: '/tmp/devops_system3', mode: '0755'}
